@@ -1,4 +1,4 @@
-import utils.random as r
+import random
 import activations as a
 
 class Layer:
@@ -6,7 +6,9 @@ class Layer:
         self.input = input
         self.output_size = output_size
         self.activationFunc = getattr(a, activationFunc)
-        self.weights = r.randomFillArray(len(input))
+        self.weights = []
+        for i in range(len(input)):
+            self.weights.append(random.randint(0, 1))
     
     def getOutput(self):
         outputs = []

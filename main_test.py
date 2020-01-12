@@ -1,8 +1,11 @@
-import utils.random as r
+import random
 import layer
 import network
 
-input = r.randomFillArray(784)
+input = []
+for i in range(784):
+    input.append(random.randint(0, 1))
+
 
 n1 = network.Network(input)
 n1.addLayer(512, 'logsigmoid')
