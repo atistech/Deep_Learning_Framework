@@ -1,13 +1,11 @@
-import random
-import layer
+import numpy as np
+import layers
 import network
 
-input = []
-for i in range(784):
-    input.append(random.randint(0, 1))
-
+input = np.random.rand(1, 784)
 
 n1 = network.Network(input)
-n1.addLayer(512, 'logsigmoid')
-n1.addLayer(10, 'relu')
-print(n1.getResult())
+n1.add(layers.Dense(512, 'relu'))
+n1.add(layers.Dense(10, 'softmax'))
+n1.summary()
+#print(n1.feedforward())

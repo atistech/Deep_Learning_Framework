@@ -1,4 +1,4 @@
-import math
+import numpy as np
 
 def hardlimit(x):
     if x < 0:
@@ -32,20 +32,17 @@ def symmetricsaturatinglinear(x):
         return 1
 
 def logsigmoid(x):
-    return 1/(1+math.exp(-x))
+    return 1/(1+np.exp(-x))
 
 def hyperbolictangentsigmoid(x):
-    return (math.exp(x)-math.exp(-x))/(math.exp(x)+math.exp(-x))
+    return (np.exp(x)-np.exp(-x))/(np.exp(x)+np.exp(-x))
 
 #Positive Linear
 def relu(x):
-    if x < 0:
+    if np.all(x < 0):
         return 0
-    elif 0 <= x:
+    elif np.all(0 <= x):
         return x
 
 def softmax(x):
-    y = []
-    for i in x:
-        y.append(math.exp(i)/sum(x, math.exp(i)))
-    return y
+    return  np.exp(x-max(x))/sum(np.exp(x-max(x)))
