@@ -4,13 +4,15 @@ class Network:
     all_layers = []
     weights = []
 
-    def __init__(self, input, actual_output):
+    def add(self, Layer):
+        self.all_layers.append(Layer)
+
+    def compile(self, input, actual_output):
         self.input = input
         self.actual_output = actual_output
         self.last_output = input
-
-    def add(self, Layer):
-        self.all_layers.append(Layer)
+        print(self.feedforward())
+        self.backprop()
 
     def feedforward(self):
         for l in self.all_layers:
@@ -19,8 +21,10 @@ class Network:
         return self.last_output
 
     def backprop(self):
+        self.all_layers.reverse()
         for l in self.all_layers:
-            l.backprop(l.input)
+            l.backprop(self.actual_output)
+        self.all_layers.reverse()
             
     def summary(self):
         print("Layer (type)     OutputShape     Param #")
