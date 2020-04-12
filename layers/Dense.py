@@ -1,43 +1,33 @@
 import numpy as np
-from activations import activations as a
-from activations import derivatived_activations as d
-
+import activations.activations as a
+import activations.derivatived_activations as d
 
 class Dense:
-    def __init__(self, output_size, activationFunc):
+
+    def __init__(self, activation, output_size):
+        self.weights = np.random.rand(self.inputs.shape[0]*self.inputs.shape[1],self.output_size)
+        self.activation = activation
         self.output_size = output_size
-        self.activationFunc = getattr(a, activationFunc)
-        self.input = None
-        self.weight = None
-        self.output = None
 
-    def feedforward(self, input):
-        self.input = input
-
-        #initialize weight with input shape and output size
-        self.weight = np.random.rand(input.shape[0]*input.shape[1],self.output_size)
+    def feedforward(self, inputs):
+        self.inputs = inputs
         
-        #
-        self.output = self.activationFunc(np.dot(input, self.weight))
-        return self.output, self.weight
+        self.func = a.Activation(np.dot(self.inputs, self.weights), self.activation)
+        self.output = self.func.callFunc()
+        return self.output
 
-    '''
-        Backpropogation Function
-        params: actual_output or network
-    '''
     def backprop(self, actual_output):
         #transpose of layer input
-        trans_input = self.input.transpose()
+        trans_input = self.inputs.transpose()
 
         #difference of between actual output and layer output
         diff = np.subtract(actual_output.reshape(self.output.shape[0]),self.output)
 
         #define activation function
-        print(getattr(d, self.activationFunc.__name__))
-        act_func = getattr(d, self.activationFunc.__name__)
+        result = a.Activation(self.output, self.activation)
 
         #dot product of trans_input and multiply by 2, diff and act_func
-        self.temp_weight = np.dot(trans_input,2*diff*act_func(self.output))
+        self.temp_weight = np.dot(trans_input,2*diff*result.callFunc())
         
         #update weights with temprorary weights
         np.add(self.weight, self.temp_weight)
