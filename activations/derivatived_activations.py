@@ -1,6 +1,5 @@
-import activations as a
+import activations.activations as a
 import numpy as np
 
-def logsigmoid(x):
-    func = a.Activation(x, 'logsigmoid')
-    return func.callFunc()*(np.subtract(1,func.callFunc()))
+def sigmoid(x):
+    return a.sigmoid(x)*(np.subtract(1,a.sigmoid(x)))
