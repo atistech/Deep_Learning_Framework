@@ -1,6 +1,7 @@
 import numpy as np
 import activations.activations as a
 import activations.derivatived_activations as d
+import losses.losses as losses
 
 class Dense:
 
@@ -20,11 +21,8 @@ class Dense:
         #transpose of layer input
         transpose_input = self.inputs.transpose()
 
-        #difference of between actual output and layer output
-        print(self.output.shape)
-        np.reshape(actual_output, self.output.shape)
-        print(actual_output.shape)
-        difference = np.subtract(actual_output, self.output)
+
+        loss = losses.error(self.output, actual_output)
 
         #define activation function
         derivate_func = getattr(d, self.activation.__name__)

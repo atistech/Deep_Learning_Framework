@@ -12,22 +12,17 @@ class Network:
         self.all_layers.append(Layer)
 
     def compile(self):
-        self.feedforward()
-        self.backprop()
-        #self.result()
-
-    def feedforward(self):
+        #feedforward
         for l in self.all_layers:
             self.last_output = l.feedforward(self.last_output)
+        #backpropagation
+        for l in self.all_layers.reverse():
+            l.backprop(self.actual_output)
+        self.all_layers.reverse()
+        #self.result()
 
     def result(self):
         print(self.last_output)
-
-    def backprop(self):
-        self.all_layers.reverse()
-        for l in self.all_layers:
-            l.backprop(self.actual_output)
-        self.all_layers.reverse()
             
     def Dense(self, size, act):
         d = dense.Dense(act, size)
