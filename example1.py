@@ -1,5 +1,4 @@
-import framework.HandwrittenDigitRecognizer as HDR
+import framework.DigitClassifier as dc
 
-hdr = HDR.HandwrittenDigitRecognizer()
-result = hdr.getResult("example1.png")
+result = dc.DigitClassifier().getResult("example1.png")
 print(result)

@@ -9,8 +9,6 @@ import numpy as np
 #load imdb dataset
 (train_data, train_labels), (test_data, test_labels) = imdb.load_data(num_words=1000)
 
-print(train_data[0])
-
 #preparing data
 def vectorize_sequences(sequences,dimension=10000):
     results = np.zeros((len(sequences), dimension))
@@ -30,11 +28,12 @@ model.add(layers.Dense(16, activation='relu', input_shape=(10000,)))
 model.add(layers.Dense(16, activation='relu'))
 model.add(layers.Dense(1, activation='sigmoid'))
 
-#compile model
+#model compile
 model.compile(optimizer='rmsprop',
               loss='binary_crossentropy',
               metrics=['accuracy'])
 
+#model training
 model.fit(x_train,
           y_train,
           epochs=4,
