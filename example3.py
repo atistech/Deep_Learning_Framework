@@ -1,5 +1,10 @@
-import framework.NewsClassifier as nc
+import framework.ImageClassifier as ic
 
-NC = nc.NewsClassifier()
+#get instance
+classifier = ic.ImageClassifier()
 
-print(NC.getResult(NC.getExample()))
+#print result
+print(classifier.getResult("example3.png"))
+
+#show result figure
+classifier.showResultFigure("example3.png")

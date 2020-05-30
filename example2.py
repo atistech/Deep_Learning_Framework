@@ -1,5 +1,10 @@
-import framework.SentimentClassifier as sc
+import framework.ClothingClassifier as cc
 
-SC = sc.SentimentClassifier()
+#get instance
+classifier = cc.ClothingClassifier()
 
-print(SC.getResult(SC.getExample()))
+#print result
+print(classifier.getResult("example2.png"))
+
+#show result figure
+classifier.showResultFigure("example2.png")

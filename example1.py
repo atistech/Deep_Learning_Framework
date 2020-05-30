@@ -1,4 +1,10 @@
 import framework.DigitClassifier as dc
 
-result = dc.DigitClassifier().getResult("example1.png")
-print(result)
+#get instance
+classifier = dc.DigitClassifier()
+
+#print result
+print(classifier.getResult("example1.png"))
+
+#show result figure
+classifier.showResultFigure("example1.png")

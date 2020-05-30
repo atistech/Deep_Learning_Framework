@@ -4,6 +4,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 from keras.models import load_model
 from keras.preprocessing import image
 import cv2
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 
 class DigitClassifier:
@@ -16,3 +18,9 @@ class DigitClassifier:
         image = image.reshape((1, 28 * 28))
         image = image.astype('float32') / 255
         return self.model.predict_classes(image)[0]
+
+    def showResultFigure(self, img_path):
+        img = mpimg.imread(img_path)
+        plt.imshow(img)
+        plt.title("Prediction is "+str(self.getResult(img_path)))
+        plt.show()
