@@ -1,17 +1,17 @@
 import tensorflow as tf
 from tensorflow.keras import datasets, layers, models
-import cv2
 
-
+#load cifar10 dataset
 (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
 
-#cv2.imwrite('/home/atom/Desktop/Deep_Learning_Framework/example3.png', train_images[281])
-train_images, test_images = train_images / 255.0, test_images / 255.0
-
+#define class names
 class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer',
                'dog', 'frog', 'horse', 'ship', 'truck']
 
+#preparing train and test datasets
+train_images, test_images = train_images / 255.0, test_images / 255.0
 
+#model architecture
 model = models.Sequential()
 model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(32, 32, 3)))
 model.add(layers.MaxPooling2D((2, 2)))
@@ -22,10 +22,13 @@ model.add(layers.Flatten())
 model.add(layers.Dense(64, activation='relu'))
 model.add(layers.Dense(10))
 
+#model compile
 model.compile(optimizer='adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
 
+#model training
 model.fit(train_images, train_labels, epochs=10)
 
+#save model
 model.save("cifar10.h5")
