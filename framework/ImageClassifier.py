@@ -33,7 +33,6 @@ class ImageClassifier:
                 index=index+1
             else:
                 break
-        print(index)
         return class_names[index]
 
     def showResultFigure(self, img_path):
